@@ -52,7 +52,8 @@ node('jenkins-jenkins-slave') {
     )
     stage('Do something...') {
       script {
-        sh "cat scan-results.json"  
+        sh "cat scan-results.json" 
+        sh "python --version"
       }  
     } 
     stage('Push Image to Registry') {
