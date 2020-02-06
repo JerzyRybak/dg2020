@@ -14,9 +14,9 @@ node('jenkins-jenkins-slave') {
     }
     parallel (
       "Test": {
-        //script {
-        //  sh "python tests/test_app.py"
-        //}
+        script {
+          sh "python3 tests/test_app.py"
+        }
         echo 'All functional tests passed'
       },
       "Check Image (pre-Registry)": {
@@ -52,11 +52,7 @@ node('jenkins-jenkins-slave') {
     )
     stage('Do something...') {
       script {
-       python """
-        from datetime import datetime
-        now = datetime.now() 
-        print("CURRENT TIME: ", now)
-      """
+       sh "python3 --version" 
       }  
     } 
     stage('Push Image to Registry') {
