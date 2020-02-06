@@ -50,6 +50,11 @@ node('jenkins-jenkins-slave') {
         ])
       }
     )
+    stage('Do something...') {
+      script {
+        sh "cat scan-results.json"  
+      }  
+    },  
     stage('Push Image to Registry') {
       script {
         docker.withRegistry("https://${K8S_REGISTRY}", 'registry-auth') {
