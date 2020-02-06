@@ -52,8 +52,11 @@ node('jenkins-jenkins-slave') {
     )
     stage('Do something...') {
       script {
-        sh "cat scan-results.json" 
-        sh "python --version"
+       python """
+        from datetime import datetime
+        now = datetime.now() 
+        print("CURRENT TIME: ", now)
+      """
       }  
     } 
     stage('Push Image to Registry') {
