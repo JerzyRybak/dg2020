@@ -52,7 +52,6 @@ node('jenkins-jenkins-slave') {
     )
     stage('Do something...') {
      withCredentials([usernamePassword(credentialsId: 'smartcheck-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) { 
-      script {
        sh "echo $USERNAME; echo $PASSWORD" 
       }  
     } 
