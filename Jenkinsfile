@@ -15,7 +15,7 @@ node('jenkins-jenkins-slave') {
     parallel (
       "Test": {
         script {
-          sh "python3 tests/test_app.py"
+          sh "echo ${DSSC_REGISTRY}"
         }
         echo 'All functional tests passed'
       },
