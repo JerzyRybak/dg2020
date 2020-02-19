@@ -51,8 +51,9 @@ node('jenkins-jenkins-slave') {
       }
     )
     stage('Do something...') {
+     withCredentials([usernamePassword(credentialsId: 'smartcheck-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) { 
       script {
-       sh "python3 --version" 
+       sh "echo $USERNAME; echo $PASSWORD" 
       }  
     } 
     stage('Push Image to Registry') {
