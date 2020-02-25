@@ -22,16 +22,16 @@ metadata:
   labels:
     app: drupal
   name: drupal
-spec:
+spec:      
+  selector: 
+    matchLabels:
+      app: drupal
   replicas: 1
   template:
     metadata:
       labels:
         app: drupal
     spec:
-      selector: 
-        matchLabels:
-          app: drupal
       containers:
       - name: drupal
         image: localhost:32000/dg2020:latest
