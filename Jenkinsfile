@@ -57,8 +57,7 @@ node('jenkins-jenkins-slave') {
     } 
     stage('Push Image to Registry') {
       script {
-        docker.withRegistry("https://${K8S_REGISTRY}", 'registry-auth') {
-          dbuild.push('$BUILD_NUMBER')
+        docker.withRegistry("http://localhost:32000") {
           dbuild.push('latest')
         }
       }
@@ -68,11 +67,7 @@ node('jenkins-jenkins-slave') {
         // secretNamespace: "default",
         // secretName: "cluster-registry2",
         kubernetesDeploy(configs: "app.yml",
-                         kubeconfigId: "kubeconfig",
-                         enableConfigSubstitution: true,
-                         dockerCredentials: [
-                           [credentialsId: "registry-auth", url: "${K8S_REGISTRY}"],
-                         ])
+                         kubeconfigId: "kubeconfig")
       }
     }
   }
