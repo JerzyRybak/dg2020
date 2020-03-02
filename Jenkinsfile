@@ -24,7 +24,7 @@ node('jenkins-jenkins-slave') {
         // secretNamespace: "default",
         // secretName: "cluster-registry2",
         kubernetesDeploy(configs: "app.yml",
-                         kubeconfig: [path:"/kubeconfig"])
+                         kubeConfig: [path:"/kubeconfig"])
       }
     }
   }
