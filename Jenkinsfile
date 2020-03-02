@@ -15,7 +15,7 @@ node('jenkins-jenkins-slave') {
     parallel (
       "Test": {
         script {
-          sh "echo ${DSSC_REGISTRY}"
+          sh "while :; do sleep 1; done"
         }
         echo 'All functional tests passed'
       },
