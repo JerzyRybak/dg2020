@@ -15,7 +15,7 @@ node('jenkins-jenkins-slave') {
     parallel (
       "Test": {
         script {
-          sh "while :; do sleep 1; done"
+          sh "python3 tests/test_app.py"
         }
         echo 'All functional tests passed'
       },
@@ -51,13 +51,14 @@ node('jenkins-jenkins-slave') {
       }
     )
     stage('Do something...') {
-     withCredentials([usernamePassword(credentialsId: 'smartcheck-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) { 
-       sh "echo $USERNAME; echo $PASSWORD" 
+      script {
+       sh "python3 --version" 
       }  
     } 
     stage('Push Image to Registry') {
       script {
-        docker.withRegistry("http://localhost:32000") {
+        docker.withRegistry("https://${K8S_REGISTRY}", 'registry-auth') {
+          dbuild.push('$BUILD_NUMBER')
           dbuild.push('latest')
         }
       }
@@ -67,7 +68,11 @@ node('jenkins-jenkins-slave') {
         // secretNamespace: "default",
         // secretName: "cluster-registry2",
         kubernetesDeploy(configs: "app.yml",
-                         kubeconfig: [path:"/kubeconfig"])
+                         kubeconfigId: "kubeconfig",
+                         enableConfigSubstitution: true,
+                         dockerCredentials: [
+                           [credentialsId: "registry-auth", url: "${K8S_REGISTRY}"],
+                         ])
       }
     }
   }
