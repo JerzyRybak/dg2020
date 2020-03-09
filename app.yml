@@ -16,16 +16,13 @@ spec:
   selector:
     app: drupal
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
     app: drupal
   name: drupal
-spec:      
-  selector: 
-    matchLabels:
-      app: drupal
+spec:
   replicas: 1
   template:
     metadata:
@@ -34,7 +31,9 @@ spec:
     spec:
       containers:
       - name: drupal
-        image: localhost:32000/dg2020:latest
+        image: $K8S_REGISTRY/dg2020:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
+      imagePullSecrets:     
+      - name: cluster-registry
