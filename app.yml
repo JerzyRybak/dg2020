@@ -36,4 +36,4 @@ spec:
         ports:
         - containerPort: 5000
       imagePullSecrets:     
-      - name: cluster-registry
+      - name: $KUBERNETES_SECRET_NAME
